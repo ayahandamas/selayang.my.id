@@ -1,4 +1,14 @@
 :root {
+  --bg-color: #ffffff;
+  --text-color: #1e293b;
+  --primary-color: #0f766e;
+  --header-bg: #0f172a;
+  --header-text: #ffffff;
+  --nav-bg: #f8fafc;
+  --nav-active: #0f766e;
+  --border-color: #e2e8f0;
+}
+:root {
   --primary: #0f766e;
   --primary-dark: #115e59;
 
@@ -21,8 +31,8 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--text);
+  background: var(--bg-color);
+  color: var(--text-color);
 }
 
 .app {
@@ -104,12 +114,8 @@ button:hover {
   }
 }
 .app-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:16px;
-    background:#0f172a;
-    color:white;
+    background:var(--header-bg);
+    color:var(--header-text);
 }
 
 .logo{
@@ -129,13 +135,8 @@ button:hover {
     min-height:70vh;
     padding:24px;
 }
-
 .bottom-nav{
-    display:flex;
-    justify-content:space-around;
-    padding:12px;
-    background:#f4f4f4;
-    border-top:1px solid #ddd;
+    background:var(--nav-bg);
 }
 
 .bottom-nav a{
@@ -150,4 +151,69 @@ button:hover {
     padding:16px;
     font-size:12px;
     color:#777;
+}
+.bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    height: 70px;
+
+    background: var(--nav-bg);
+    border-top: 1px solid var(--border-color);
+}
+
+.bottom-nav a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    flex: 1;
+
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 14px;
+}
+.bottom-nav a.active{
+    color:var(--nav-active);
+    font-weight:bold;
+}
+
+.bottom-nav a:hover{
+    color:var(--nav-active);
+}
+body {
+    margin: 0;
+    min-height: 100vh;
+}
+
+#app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-content {
+    flex: 1;
+    padding: 24px;
+}
+body {
+    margin: 0;
+    min-height: 100vh;
+}
+
+#app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-content {
+    flex: 1;
 }
