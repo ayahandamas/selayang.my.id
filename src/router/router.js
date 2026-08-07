@@ -7,7 +7,12 @@ export function renderRoute() {
 
   const hash = location.hash.replace("#", "") || "/";
 
-  const Page = routes[hash] || routes["/"];
+  // Support URL seperti /reader/2
+  const path = hash.startsWith("/reader/")
+      ? "/reader"
+      : hash;
+
+  const Page = routes[path] || routes["/"];
 
   app.innerHTML = Layout(Page());
 

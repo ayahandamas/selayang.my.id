@@ -1,8 +1,19 @@
+import { getAllSurah } from "../services/quranService.js";
+import { SurahCard } from "../components/SurahCard.js";
+
 export function HomePage() {
+
+  const surahs = getAllSurah();
+
   return `
-    <section class="page">
-      <h2>🏠 Home</h2>
-      <p>Selamat datang di Selayang.my.id</p>
+    <section>
+
+      <h2>Daftar Surah</h2>
+
+      <div class="surah-list">
+        ${surahs.map(SurahCard).join("")}
+      </div>
+
     </section>
   `;
 }
