@@ -1,4 +1,5 @@
 export function SurahCard(surah) {
+
   return `
     <article
       class="surah-card"
@@ -9,9 +10,13 @@ export function SurahCard(surah) {
       </div>
 
       <div class="surah-info">
+
         <h3>${surah.name}</h3>
+
         <p>${surah.englishName}</p>
-        <small>${surah.ayahs} Ayat</small>
+
+        <small>${surah.numberOfAyahs} Ayat</small>
+
       </div>
 
     </article>

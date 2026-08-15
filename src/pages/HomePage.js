@@ -1,12 +1,11 @@
-import { getAllSurah } from "../services/quranService.js";
+import { getSurahListFromApi } from "../services/quranApiService.js";
 import { SurahCard } from "../components/SurahCard.js";
 
-export function HomePage() {
-
-  const surahs = getAllSurah();
+export async function HomePage() {
+  const surahs = await getSurahListFromApi();
 
   return `
-    <section>
+    <section class="page">
 
       <h2>Daftar Surah</h2>
 

@@ -1,7 +1,7 @@
 import { routes } from "./routes.js";
 import { Layout } from "../components/Layout.js";
+export async function renderRoute() {
 
-export function renderRoute() {
 
   const app = document.querySelector("#app");
 
@@ -14,6 +14,6 @@ export function renderRoute() {
 
   const Page = routes[path] || routes["/"];
 
-  app.innerHTML = Layout(Page());
+  app.innerHTML = Layout(await Page());
 
 }
