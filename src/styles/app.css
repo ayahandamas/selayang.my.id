@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "UthmanicHafs";
+  src: url("https://verses.quran.foundation/fonts/quran/hafs/uthmanic_hafs/UthmanicHafs1Ver18.woff2")
+       format("woff2");
+  font-display: swap;
+}
 :root {
   --bg-color: #ffffff;
   --text-color: #1e293b;
@@ -300,20 +306,16 @@ body {
 
     margin-bottom:16px;
 }
-
-.ayah-arabic{
-
-    font-size:34px;
-
-    line-height:2;
-
-    text-align:right;
-
-    direction:rtl;
-
-    margin-bottom:20px;
+.ayah-arabic {
+  font-family: "UthmanicHafs", serif;
+  font-size: 42px;
+  line-height: 2.2;
+  direction: rtl;
+  text-align: right;
+  margin: 0 0 24px 0;
+  color: #1e293b;
+  font-weight: normal;
 }
-
 .ayah-translation{
 
     color:#555;
