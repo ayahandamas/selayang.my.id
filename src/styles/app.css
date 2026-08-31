@@ -283,29 +283,27 @@ body {
     margin-top:24px;
 }
 
-.ayah-card{
-    background:#fff;
-    border-radius:16px;
-    padding:20px;
-    margin-bottom:16px;
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
+.ayah-card {
+  display: flex;
+  gap: 24px;
+  padding: 28px 32px;
+  margin-bottom: 20px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+.ayah-number {
+  flex: 0 0 52px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 600;
 }
 
-.ayah-number{
-    width:36px;
-    height:36px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:50%;
-    background:#0f766e;
-    color:white;
-    font-weight:bold;
-
-    margin-bottom:16px;
-}
 .ayah-arabic {
   font-family: "UthmanicHafs", serif;
   font-size: 42px;
@@ -316,9 +314,151 @@ body {
   color: #1e293b;
   font-weight: normal;
 }
+
 .ayah-translation{
 
     color:#555;
 
     line-height:1.8;
+}
+
+.ayah-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.ayah-indonesia {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.8;
+  color: #64748b;
+  margin: 0;
+}
+
+.surah-navigation {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 16px;
+  align-items: center;
+  margin: 32px 0;
+  padding: 20px 0;
+}
+
+.surah-nav-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #0f766e;
+  text-decoration: none;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+  transition: 0.2s ease;
+}
+
+.surah-nav-button:hover {
+  transform: translateY(-2px);
+}
+@media (max-width: 768px) {
+
+  .surah-navigation {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+}
+/* ================================
+   Reader Navigation
+================================ */
+
+.reader-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin: 32px 0 100px;
+  padding: 18px 24px;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+}
+
+.reader-nav {
+  color: #0f766e;
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 500;
+  padding: 10px 14px;
+  border-radius: 10px;
+  transition: 0.2s ease;
+}
+
+.reader-nav:hover {
+  background: #f0fdfa;
+}
+
+.reader-nav.home {
+  font-weight: 600;
+}
+
+.reader-nav.disabled {
+  color: #cbd5e1;
+  cursor: default;
+}
+
+.reader-nav.disabled:hover {
+  background: transparent;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+  .reader-navigation {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .reader-nav {
+    width: 100%;
+    text-align: center;
+  }
+
+}
+/* Reader navigation */
+.reader-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+  padding: 20px 0 10px;
+}
+
+.reader-nav-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 180px;
+  padding: 12px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--text-color);
+  background: #f1f5f9;
+  transition: 0.2s ease;
+}
+
+.reader-nav-button:hover {
+  transform: translateY(-1px);
+}
+
+.reader-nav-home {
+  font-weight: 600;
+}
+
+.reader-nav-button.disabled {
+  opacity: 0.35;
+  cursor: default;
 }

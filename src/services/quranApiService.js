@@ -14,7 +14,7 @@ export async function getSurahListFromApi() {
 
 export async function getSurahAyahsFromApi(number) {
   const response = await fetch(
-    `${API_BASE}/surah/${number}/editions/quran-uthmani,id.indonesian`
+    `${API_BASE}/surah/${number}/editions/quran-uthmani,id.indonesian,ar.alafasy`
   );
 
   if (!response.ok) {
