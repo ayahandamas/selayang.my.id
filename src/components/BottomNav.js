@@ -1,10 +1,9 @@
 export function BottomNav() {
-
   const current =
-    location.hash.replace("#","") || "/home";
+    location.hash.replace("#", "") || "/home";
 
-  function active(path){
-      return current===path ? "active":"";
+  function active(path) {
+    return current === path ? "active" : "";
   }
 
   return `
