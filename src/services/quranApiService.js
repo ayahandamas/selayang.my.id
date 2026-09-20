@@ -25,3 +25,22 @@ export async function getSurahAyahsFromApi(number) {
 
   return result.data;
 }
+export async function searchQuranFromApi(keyword) {
+  const query = String(keyword || "").trim();
+
+  if (!query) {
+    return [];
+  }
+
+  const response = await fetch(
+    `${API_BASE}/search/${encodeURIComponent(query)}/all/id.indonesian`
+  );
+
+  if (!response.ok) {
+    throw new Error("Gagal mencari ayat Al-Qur'an");
+  }
+
+  const result = await response.json();
+
+  return result.data?.matches || [];
+}
