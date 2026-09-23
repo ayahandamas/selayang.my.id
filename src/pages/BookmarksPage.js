@@ -114,7 +114,7 @@ const SURAH_NAMES = {
   111: "Al-Masad",
   112: "Al-Ikhlas",
   113: "Al-Falaq",
-  114: "An-Nas"
+  114: "An-Nas",
 };
 
 export function BookmarksPage() {
@@ -123,20 +123,28 @@ export function BookmarksPage() {
   if (bookmarks.length === 0) {
     return `
       <section class="page bookmarks-page">
+
         <header class="bookmarks-header">
-          <p class="settings-eyebrow">🔖 Bookmark</p>
+          <p class="settings-eyebrow">&#128278; Bookmark</p>
+
           <h1>Bookmark Saya</h1>
-          <p>Ayat yang Anda simpan akan muncul di sini.</p>
+
+          <p>
+            Ayat yang Anda simpan akan muncul di sini.
+          </p>
         </header>
 
         <div class="bookmarks-empty">
-          <div class="bookmarks-empty-icon">🔖</div>
+          <div class="bookmarks-empty-icon">&#128278;</div>
+
           <h2>Belum ada ayat tersimpan</h2>
+
           <p>
             Buka Al-Qur'an dan tekan tombol bookmark
             pada ayat yang ingin Anda simpan.
           </p>
         </div>
+
       </section>
     `;
   }
@@ -150,28 +158,43 @@ export function BookmarksPage() {
         `Surah ${surahNumber}`;
 
       return `
-        <a
-          href="#/reader?surah=${surahNumber}&ayah=${ayahNumber}"
-          class="bookmark-item"
-        >
-          <span class="bookmark-item-icon">🔖</span>
+        <div class="bookmark-item">
 
-          <span class="bookmark-item-info">
-            <strong>${surahName}</strong>
-            <span>Ayat ${ayahNumber}</span>
-          </span>
+          <a
+            href="#/reader?surah=${surahNumber}&ayah=${ayahNumber}"
+            class="bookmark-item-link"
+            aria-label="Buka ${surahName} ayat ${ayahNumber}"
+          >
 
-          <span class="bookmark-item-arrow">›</span>
-        </a>
+            <span class="bookmark-item-icon">&#128278;</span>
+
+            <span class="bookmark-item-info">
+              <strong>${surahName}</strong>
+              <span>Ayat ${ayahNumber}</span>
+            </span>
+
+            <span class="bookmark-item-arrow">&#8250;</span>
+
+          </a>
+
+          <button
+            type="button"
+            class="bookmark-delete-button"
+            data-bookmark-id="${id}"
+            aria-label="Hapus bookmark ${surahName} ayat ${ayahNumber}"
+            title="Hapus bookmark"
+          >&#128465;</button>
+
+        </div>
       `;
     })
     .join("");
 
-  return `
+  const html = `
     <section class="page bookmarks-page">
 
       <header class="bookmarks-header">
-        <p class="settings-eyebrow">🔖 Bookmark</p>
+        <p class="settings-eyebrow">&#128278; Bookmark</p>
 
         <h1>Bookmark Saya</h1>
 
@@ -187,6 +210,27 @@ export function BookmarksPage() {
 
     </section>
   `;
+
+  setTimeout(() => {
+    document
+      .querySelectorAll(".bookmark-delete-button")
+      .forEach((button) => {
+        button.addEventListener("click", (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+
+          const id = button.dataset.bookmarkId;
+
+          removeBookmark(id);
+
+          window.dispatchEvent(
+            new HashChangeEvent("hashchange")
+          );
+        });
+      });
+  }, 0);
+
+  return html;
 }
 
 function getBookmarks() {
@@ -199,4 +243,17 @@ function getBookmarks() {
   } catch {
     return [];
   }
+}
+
+function removeBookmark(id) {
+  const bookmarks = getBookmarks();
+
+  const updated = bookmarks.filter(
+    (bookmarkId) => bookmarkId !== id
+  );
+
+  localStorage.setItem(
+    BOOKMARK_STORAGE_KEY,
+    JSON.stringify(updated)
+  );
 }
