@@ -121,6 +121,60 @@ function createAudioButton(audioUrl) {
   return button;
 }
 
+const BOOKMARK_STORAGE_KEY = "selayangQuranBookmarks";
+
+function getBookmarks() {
+  try {
+    return JSON.parse(
+      localStorage.getItem(BOOKMARK_STORAGE_KEY) || "[]"
+    );
+  } catch {
+    return [];
+  }
+}
+
+function saveBookmarks(bookmarks) {
+  localStorage.setItem(
+    BOOKMARK_STORAGE_KEY,
+    JSON.stringify(bookmarks)
+  );
+}
+
+function createBookmarkButton(surahNumber, ayahNumber) {
+  const button = document.createElement("button");
+
+  button.type = "button";
+  button.className = "ayah-bookmark-button";
+  button.textContent = "\u{1F516}";
+
+  const id = `${surahNumber}:${ayahNumber}`;
+
+  function refresh() {
+    const bookmarks = getBookmarks();
+    button.classList.toggle(
+      "bookmarked",
+      bookmarks.includes(id)
+    );
+  }
+
+  button.addEventListener("click", () => {
+    const bookmarks = getBookmarks();
+    const index = bookmarks.indexOf(id);
+
+    if (index === -1) {
+      bookmarks.push(id);
+    } else {
+      bookmarks.splice(index, 1);
+    }
+
+    saveBookmarks(bookmarks);
+    refresh();
+  });
+
+  refresh();
+
+  return button;
+}
 export async function ReaderPage() {
   /*
    * Router menggunakan URL:
@@ -132,9 +186,32 @@ export async function ReaderPage() {
 
   const match = hash.match(/^#\/reader\/(\d+)$/);
 
-  const surahNumber = match
+  let targetAyahNumber = null;
+
+  let surahNumber = match
     ? Number(match[1])
     : 1;
+
+  const readerTarget =
+    sessionStorage.getItem("selayangReaderTarget");
+
+  if (readerTarget) {
+    try {
+      const target = JSON.parse(readerTarget);
+
+      if (target?.surah) {
+        surahNumber = Number(target.surah);
+      }
+
+      if (target?.ayah) {
+        targetAyahNumber = Number(target.ayah);
+      }
+    } catch {
+      // Abaikan target yang tidak valid.
+    }
+
+    sessionStorage.removeItem("selayangReaderTarget");
+  }
 
   stopCurrentAudio();
 
@@ -369,7 +446,14 @@ export async function ReaderPage() {
 
         if (audioButton) {
           topRow.appendChild(audioButton);
-        }
+          const bookmarkButton =
+          createBookmarkButton(
+            surahNumber,
+            ayah.numberInSurah
+          );
+
+        topRow.appendChild(bookmarkButton);
+      }
 
         const content =
           document.createElement("div");
@@ -409,6 +493,20 @@ export async function ReaderPage() {
 
         ayahList.appendChild(card);
       });
+      if (targetAyahNumber) {
+        const targetCard =
+          ayahList.children[targetAyahNumber - 1];
+
+        if (targetCard) {
+          setTimeout(() => {
+            targetCard.scrollIntoView({
+              behavior: "smooth",
+              block: "center"
+            });
+          }, 100);
+        }
+      }
+
     }, 0);
 
     return html;

@@ -1,6 +1,6 @@
 export function BottomNav() {
   const current =
-    location.hash.replace("#", "") || "/home";
+    location.hash.replace("#", "").split("?")[0] || "/home";
 
   function active(path) {
     return current === path ? "active" : "";
@@ -19,6 +19,10 @@ export function BottomNav() {
 
       <a class="${active("/search")}" href="#/search">
         🔍<br>Search
+      </a>
+
+      <a class="${active("/bookmarks")}" href="#/bookmarks">
+        🔖<br>Bookmark
       </a>
 
       <a class="${active("/settings")}" href="#/settings">

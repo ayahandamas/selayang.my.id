@@ -7,10 +7,31 @@ export async function renderRoute() {
 
   const hash = location.hash.replace("#", "") || "/";
 
+  const [rawPath, queryString] = hash.split("?");
+
+  const pathName = rawPath || "/";
+
+  if (pathName === "/reader" && queryString) {
+    const params = new URLSearchParams(queryString);
+
+    const surah = params.get("surah");
+    const ayah = params.get("ayah");
+
+    if (surah && ayah) {
+      sessionStorage.setItem(
+        "selayangReaderTarget",
+        JSON.stringify({
+          surah: Number(surah),
+          ayah: Number(ayah),
+        })
+      );
+    }
+  }
+
   // Support URL seperti /reader/2
-  const path = hash.startsWith("/reader/")
+  const path = pathName.startsWith("/reader/")
       ? "/reader"
-      : hash;
+      : pathName;
 
   const Page = routes[path] || routes["/"];
 
